@@ -222,10 +222,11 @@ void BenchmarkFileReader<T>::read_plu_file(std::string file_path) {
 				input_chunk.push_back(input);
 			}
 
-			// Inputs and outputs are seperated with three whitespaces
-			ifs.get(c);
-			ifs.get(c);
-			ifs.get(c);
+			// Inputs and outputs are seperated with whitespaces
+			// Therefore, we skip this whitespace
+			do {
+				ifs.get(c);
+			} while (ifs.peek() == ' ');
 
 			// Read and store the outputs of the current chunk.
 			for (int j = 0; j < this->outputs; j++) {
@@ -282,7 +283,7 @@ void BenchmarkFileReader<T>::read_pla_file(std::string file_path) {
 		for (int i = 0; i < rows; i++) {
 
 			if (!ifs.good()) {
-				throw std::runtime_error("Error while reading PLU file!");
+				throw std::runtime_error("Error while reading PLA file!");
 			}
 
 			for (int j = 0; j < this->inputs; j++) {
@@ -290,13 +291,13 @@ void BenchmarkFileReader<T>::read_pla_file(std::string file_path) {
 				row_inputs.push_back(input);
 			}
 
-			ifs.get(c);
-			ifs.get(c);
-			ifs.get(c);
+			do {
+				ifs.get(c);
+			} while (ifs.peek() == ' ');
 
 			for (int j = 0; j < this->outputs; j++) {
 				ifs >> output;
-				row_outputs.push_back(input);
+				row_outputs.push_back(output);
 			}
 
 			table_inputs.push_back(row_inputs);
@@ -310,7 +311,7 @@ void BenchmarkFileReader<T>::read_pla_file(std::string file_path) {
 		truth_table.second = table_outputs;
 
 	} else {
-		throw std::runtime_error("Error opening PLU file!");
+		throw std::runtime_error("Error opening PLA file!");
 	}
 
 }

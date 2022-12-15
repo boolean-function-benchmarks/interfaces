@@ -13,10 +13,10 @@
 
 int main() {
 
-	BenchmarkFileReader<int>* reader = new BenchmarkFileReader<int>();
+	BenchmarkFileReader<char>* reader = new BenchmarkFileReader<char>();
 
-	reader->read_plu_file("data/add1c.plu");
-	reader->print_compressed_data();
+	reader->read_pla_file("test-data/add2.pla");
+	reader->print_truth_table();
 
 	delete reader;
 }
