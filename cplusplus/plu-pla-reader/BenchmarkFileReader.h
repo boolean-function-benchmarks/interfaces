@@ -1,5 +1,5 @@
 /*
- *  The class BenchmarkFileReader provides methods for reading PLU as well as
+ *  The generic class BenchmarkFileReader provides methods for reading PLU as well as
  *  PLA files.
  *
  *  In PLU files the truth tables are divided into chunks and compressed to integers.
@@ -29,6 +29,8 @@
 #include <memory>
 #include <cmath>
 #include <utility>
+#include <algorithm>
+
 
 template<class T>
 class BenchmarkFileReader {
@@ -160,11 +162,21 @@ template<class T>
 void BenchmarkFileReader<T>::validate_file(std::string file_path,
 		std::string format) {
 
+	// Check if file path is empty
 	if (file_path.size() == 0) {
 		throw std::runtime_error("File path is an empty string!");
 	}
 
+	// Check whether the file exists
+	if (!std::filesystem::exists(file_path)) {
+		throw std::runtime_error("File does not exist!");
+	}
+
+	// Extract the file extension
 	std::string extension = std::filesystem::path(file_path).extension();
+
+	// Convert to lower case
+	std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
 
 	if (extension != format) {
 		throw std::runtime_error("Wrong file format!");
