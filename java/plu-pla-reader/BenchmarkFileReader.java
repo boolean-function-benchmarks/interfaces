@@ -269,7 +269,7 @@ public class BenchmarkFileReader {
 
 		try {
 			// Read a benchmark file from the test data folder  
-			reader.readFile("../test-data/add2.pla");
+			reader.readFile("../../data/add2.pla");
 			
 			// Print the respective table 
 			reader.printTable();

@@ -15,7 +15,7 @@ int main() {
 
 	BenchmarkFileReader<long>* reader = new BenchmarkFileReader<long>();
 
-	reader->read_plu_file("../data/mult3.plu");
+	reader->read_plu_file("../../data/mult3.plu");
 	reader->print_compressed_data();
 
 	delete reader;
