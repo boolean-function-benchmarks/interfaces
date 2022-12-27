@@ -61,7 +61,7 @@ plu-pla-reader: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 
 # Other Targets
 clean:
-	-$(RM) plu-pla-reader
+	-$(RM) ../plu-pla-reader
 	-@echo ' '
 
 .PHONY: all clean dependents main-build
