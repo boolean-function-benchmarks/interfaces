@@ -44,9 +44,20 @@ public class TruthTable<T extends Number> {
 
 	/**
 	 * Prints a compressed or uncompressed truth table without header. The inputs
-	 * and outputs are separated with whitespace.
+	 * and outputs are separated with whitespace. The input and output vectors are validated
+	 * beforehand.
 	 */
 	public void print() {
+
+		// Check whether the input vector contain any data
+		assert !(this.inputs.isEmpty()) : "No data is stored in the input vector";
+
+		// Check whether the output vector contain any data
+		assert !(this.outputs.isEmpty()) : "No data is stored in the input vector";
+
+		// Check whether the dimensions of the input and output data are equal
+		assert this.inputs.size() == this.outputs.size() : "Dimension of the input and output data does not match!";
+
 		// Iterate over the number of rows of the table.
 		for (int i = 0; i < this.rows(); i++) {
 
@@ -75,41 +86,55 @@ public class TruthTable<T extends Number> {
 	/**
 	 * Adds an input row/chunk vector to the two dimensional input vector.
 	 * 
+	 * Validates the input row vector by using assert. The input row vector must be
+	 * not None and non-empty.
+	 * 
 	 * @param inputVec Vector containing an input chunk/row.
 	 */
 	public void addInputs(Vector<T> inputVec) {
+		assert inputVec != null && inputVec.isEmpty() : "Input vector is null or empty!";
 		this.inputs.add((Vector<T>) inputVec.clone());
 	}
 
 	/**
 	 * Adds an output row/chunk vector to the two dimensional output vector.
 	 * 
+	 * Validates the output row vector by using assert. The output row vector must
+	 * be not None and non-empty.
+	 * 
 	 * @param outputVec Vector containing an input chunk/row.
 	 */
 	public void addOutputs(Vector<T> outputVec) {
+		assert (outputVec != null && outputVec.isEmpty()) : "Output vector is null or empty!";
 		this.outputs.add((Vector<T>) outputVec.clone());
 
 	}
 
 	/**
-	 * Returns a chunk/row vector at the given index.
+	 * Returns a chunk/row vector at the given index. Validates the index by using
+	 * assert. The index must be in the interval 0 <= index <= max_index.
 	 * 
 	 * @param index of the input hunk/row within the two dimensional input vector
 	 * 
 	 * @return the chunk/row input vector at the given index
 	 */
 	public Vector<T> getInputsAt(int index) {
+		int max_index = this.inputs.size() - 1;
+		assert (index >= 0) && (index <= max_index) : "Index is out of range!";
 		return inputs.get(index);
 	}
 
 	/**
-	 * Returns a chunk/row vector at the given index.
+	 * Returns a chunk/row vector at the given index. Validates the index by using
+	 * assert. The index must be in the interval 0 <= index <= max_index.
 	 * 
 	 * @param index of the output hunk/row within the two dimensional output vector
 	 * 
 	 * @return the chunk/row input vector at the given index
 	 */
 	public Vector<T> getOutputsAt(int index) {
+		int max_index = this.inputs.size() - 1;
+		assert (index >= 0) && (index <= max_index) : "Index is out of range!";
 		return outputs.get(index);
 	}
 

@@ -18,6 +18,9 @@ import java.util.Vector;
  * @author Roman Kalkreuth, https://orcid.org/0000-0003-1449-5131,
  *         https://www.researchgate.net/profile/Roman-Kalkreuth,
  *         https://twitter.com/RomanKalkreuth
+ *         
+ * @version 1.0
+ * 
  */
 public class BenchmarkFileReader {
 
@@ -111,6 +114,7 @@ public class BenchmarkFileReader {
 	 * 
 	 * 
 	 * @param filePath path of the benchmark file
+	 * @see TruthTable
 	 * 
 	 * @throws IOException
 	 * @throws ParseException
@@ -262,7 +266,6 @@ public class BenchmarkFileReader {
 	}
 
 	public static void main(String[] args) {
-
 
 		// Instantiate new reader object
 		BenchmarkFileReader reader = new BenchmarkFileReader();
