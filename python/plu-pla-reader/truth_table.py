@@ -29,37 +29,53 @@ class TruthTable:
     def append_inputs(self, input_row: list) -> None:
         """
         Appends a new input row vector to the inputs.
+        Validates the input row vector by using assert.
+        The input row vector must be not None and non-empty.
 
         :param input_row: Vector containing a row of inputs
         :return: None
         """
+        assert input_row is not None and len(input_row) > 0, "Input row vector is" \
+                                                         "None or empty!"
         self.inputs.append(input_row)
 
     def append_outputs(self, output_row: list) -> None:
         """
         Appends a new output row vector to the outputs.
+        Validates the output row vector by using assert.
+        The output row vector must be not None and non-empty.
 
         :param output_row: Vector containing a row of outputs
         :return: None
         """
-        self.inouts.append(output_row)
+        assert output_row is not None and len(output_row) > 0, "Output row vector is " \
+                                                           "None or emtpy!"
+        self.outputs.append(output_row)
 
     def get_inputs_at(self, index: int) -> list:
         """
         Returns a row of inputs at a specific index.
+        Validates the index by using assert. The index
+        must be in the interval 0 <= index <= max_index.
 
         :param index: index of the row
         :return: Vector containing a row of inputs
         """
+        max_index = len(self.inputs)
+        assert 0 <= index <= max_index, "Index is out of range!"
         return self.inputs[index]
 
     def get_outputs_at(self, index: int) -> list:
         """
         Returns a row of outputs at a specific index.
+        Validates the index by using assert. The index
+        must be in the interval 0 <= index <= max_index.
 
         :param index: index of the row
         :return: Vector containing a row of outputs
         """
+        max_index = len(self.outputs)
+        assert 0 <= index <= max_index, "Index is out of range!"
         return self.outputs[index]
 
     def print(self) -> None:

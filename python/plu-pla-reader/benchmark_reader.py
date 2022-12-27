@@ -3,6 +3,8 @@ from os import path
 
 import truth_table
 
+#  TODO Integrity check -> Validate equal dimensions of inputs and outputs
+
 
 class BenchmarkReader:
     """
@@ -55,7 +57,7 @@ class BenchmarkReader:
         if not extension.lower() == '.plu' and not extension.lower() == '.pla':
             raise Exception("File type is not valid for benchmark reader!")
 
-    def format(self, file_path: str) -> int:
+    def file_format(self, file_path: str) -> int:
         """
         Checks the file extension and returns the file format (PLU or PLA).
 
@@ -93,7 +95,7 @@ class BenchmarkReader:
         self.validate_file_path(file_path)
 
         # Determine the file format
-        file_format = self.format(file_path)
+        file_format = self.file_format(file_path)
 
         # Lists for the header and input/output rows
         header = []
@@ -151,8 +153,8 @@ class BenchmarkReader:
                     output_row.append(value)
 
             # Store the data of the row in the vectors of the truth table
-            self.table.inputs.append(input_row.copy())
-            self.table.outputs.append(output_row.copy())
+            self.table.append_inputs(input_row.copy())
+            self.table.append_outputs(output_row.copy())
 
             # Remove the input/output row data from the temporary storage
             input_row.clear()
