@@ -38,7 +38,7 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := plu-pla-interface
+BUILD_ARTIFACT_NAME := plu-pla-reader
 BUILD_ARTIFACT_EXTENSION :=
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
@@ -49,19 +49,19 @@ BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ART
 all: main-build
 
 # Main-build Target
-main-build: plu-pla-interface
+main-build: plu-pla-reader
 
 # Tool invocations
-plu-pla-interface: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
+plu-pla-reader: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++  -o "../plu-pla-interface" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++  -o "../plu-pla-reader" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) ../plu-pla-interface
+	-$(RM) plu-pla-reader
 	-@echo ' '
 
 .PHONY: all clean dependents main-build
