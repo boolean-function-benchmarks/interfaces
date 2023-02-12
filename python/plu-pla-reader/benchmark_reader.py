@@ -3,9 +3,6 @@ from os import path
 
 import truth_table
 
-#  TODO Integrity check -> Validate equal dimensions of inputs and outputs
-
-
 class BenchmarkReader:
     """
     The BenchmarkReader class provides methods for validating and reading

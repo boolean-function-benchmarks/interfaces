@@ -14,11 +14,6 @@ import java.util.Vector;
  * The data of compressed (PLU files) and uncompressed (PLA files) tables is
  * stored in an object of the class TruthTable.
  * 
- * 
- * @author Roman Kalkreuth, https://orcid.org/0000-0003-1449-5131,
- *         https://www.researchgate.net/profile/Roman-Kalkreuth,
- *         https://twitter.com/RomanKalkreuth
- *         
  * @version 1.0
  * 
  */
