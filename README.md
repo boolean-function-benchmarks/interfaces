@@ -3,7 +3,7 @@
 (This readme version has been anonymized and all references to former work have been deleted)
 
 Provides interfaces for the benchmarks listed in https://github.com/boolean-function-benchmarks/benchmarks
-for the following languages:
+written in the following languages:
 
 ## C++
 
