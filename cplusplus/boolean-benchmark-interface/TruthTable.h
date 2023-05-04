@@ -13,12 +13,26 @@
  *
  * @tparam T Generic type for the input and output vectors.
  *
+ * @author  Roman Kalkreuth,
+ *          https://orcid.org/0000-0003-1449-5131,
+ *          https://www.researchgate.net/profile/Roman-Kalkreuth,
+ *          https://twitter.com/RomanKalkreuth
+ *
+ *
+ * TODO Integrity check -> Validate equal dimensions of inputs and outputs
+ * TODO Type traits -> Integer
+ *
  */
 template<class T>
 class TruthTable {
 private:
 	std::vector<std::vector<T>> inputs;
 	std::vector<std::vector<T>> outputs;
+
+	std::vector<std::string> input_names;
+	std::vector<std::string> output_names;
+
+	std::string model_name;
 
 	bool compressed = false;
 public:
@@ -34,6 +48,14 @@ public:
 	const std::vector<std::vector<T>>& get_inputs() const;
 	const std::vector<std::vector<T>>& get_outputs() const;
 
+	std::vector<std::string>& get_input_names();
+	std::vector<std::string>& get_output_names();
+
+	void print_input_names();
+	void print_output_names();
+
+	const std::string get_model_name() const;
+
 	bool is_compressed() const;
 	void set_compressed(bool p_compressed);
 
@@ -42,7 +64,49 @@ public:
 	void reset();
 	int rows();
 
+	void generate_inputs(int p_num_inputs);
+	void init_outputs(int p_num_outputs, int p_num_rows);
+
+	void set_output_at(int p_row, int p_output, int p_val);
+
 };
+
+template<class T>
+void TruthTable<T>::generate_inputs(int p_num_inputs) {
+
+	int n;
+	int x = 0;
+	int rows = std::pow(2.0, p_num_inputs);
+
+	std::vector<std::vector<T>> *input_table = new std::vector<std::vector<T> >(
+			rows, std::vector<T>(p_num_inputs, 0));
+
+	for (int i = p_num_inputs - 1; i >= 0; i--) {
+		n = std::pow(2.0, x);
+		for (int j = 0; j < rows; j++) {
+			if (j % (n * 2) >= n) {
+				(*input_table)[j][i] = 1;
+			}
+		}
+		x++;
+	}
+
+	this->inputs = *input_table;
+}
+
+template<class T>
+void TruthTable<T>::init_outputs(int p_num_outputs, int p_num_rows) {
+	std::vector<std::vector<T>> *output_table = new std::vector<std::vector<T> >(
+				p_num_rows, std::vector<T>(p_num_outputs, 0));
+
+	this->outputs = *output_table;
+}
+
+template<class T>
+void TruthTable<T>::set_output_at(int p_row, int p_output, int p_val) {
+	this->outputs.at(p_row).at(p_output) = p_val;
+}
+
 
 /**
  * @brief Appends an input row vector to the 2D input vector.
@@ -125,6 +189,42 @@ const std::vector<std::vector<T>>& TruthTable<T>::get_outputs() const {
 }
 
 /**
+ *
+ */
+template<class T>
+std::vector<std::string>& TruthTable<T>::get_input_names() {
+	return input_names;
+}
+
+/**
+ *
+ */
+template<class T>
+std::vector<std::string>& TruthTable<T>::get_output_names() {
+	return output_names;
+}
+
+/**
+ *
+ */
+template<class T>
+void TruthTable<T>::print_input_names() {
+	for (std::string s : this->input_names) {
+		std::cout << s << " ";
+	}
+}
+
+/**
+ *
+ */
+template<class T>
+void TruthTable<T>::print_output_names() {
+	for (std::string s : this->output_names) {
+		std::cout << s << " ";
+	}
+}
+
+/**
  * @brief Clears the input and output vector..
  */
 template<class T>
@@ -175,7 +275,8 @@ void TruthTable<T>::print() {
 
 	// Check whether the dimensions of the input and output data are equal
 	if (this->outputs.size() != this->outputs.size()) {
-		throw std::runtime_error("Number of output and input rows are not equal!");
+		throw std::runtime_error(
+				"Number of output and input rows are not equal!");
 		return;
 	}
 
