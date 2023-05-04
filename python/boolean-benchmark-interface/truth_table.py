@@ -6,8 +6,20 @@ class TruthTable:
 
     def __init__(self):
         self.compressed = False
+
         self.inputs = []
         self.outputs = []
+
+        self.input_names = []
+        self.output_names = []
+
+
+        # Variables for the meta information of a certain benchmark
+        self.num_inputs = -1
+        self.num_outputs = -1
+        self.num_chunks = -1
+        self.num_product_terms = -1
+        self.model_name = ""
 
     def clear(self) -> None:
         """
@@ -15,7 +27,7 @@ class TruthTable:
 
         :return: None
         """
-        self.inputs.clear()
+        self.num_inputs.clear()
         self.output.clear()
 
     def rows(self) -> int:
@@ -77,6 +89,28 @@ class TruthTable:
         max_index = len(self.outputs)
         assert 0 <= index <= max_index, "Index is out of range!"
         return self.outputs[index]
+
+    def print_input_names(self) -> None:
+        """
+
+        :return:
+        """
+        print("Input names: ", end="")
+        for name in self.input_names:
+            print(name + " ", end="")
+
+        print("")
+
+    def print_output_names(self) -> None:
+        """
+
+        :return
+        """
+        print("Output names: ", end="")
+        for name in self.output_names:
+            print(name + " ", end="")
+
+        print("")
 
     def print(self) -> None:
         """
