@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.Vector;
 
 /**
@@ -9,6 +10,10 @@ import java.util.Vector;
  * row/chunk vectors.
  * 
  * The generic property of this class is bounded to Number.
+ * 
+ * @author Roman Kalkreuth, https://orcid.org/0000-0003-1449-5131,
+ *         https://www.researchgate.net/profile/Roman-Kalkreuth,
+ *         https://twitter.com/RomanKalkreuth
  *
  * @version 1.0
  *
@@ -18,6 +23,14 @@ public class TruthTable<T extends Number> {
 
 	private Vector<Vector<T>> inputs = new Vector<Vector<T>>();
 	private Vector<Vector<T>> outputs = new Vector<Vector<T>>();
+
+	private Vector<String> inputNames = new Vector<String>();
+	private Vector<String> outputNames = new Vector<String>();
+
+	private String modelName = "";
+
+	private int numChunks;
+	private int numProductTerms;
 
 	private boolean compressed = false;
 
@@ -40,8 +53,8 @@ public class TruthTable<T extends Number> {
 
 	/**
 	 * Prints a compressed or uncompressed truth table without header. The inputs
-	 * and outputs are separated with whitespace. The input and output vectors are validated
-	 * beforehand.
+	 * and outputs are separated with whitespace. The input and output vectors are
+	 * validated beforehand.
 	 */
 	public void print() {
 
@@ -121,6 +134,28 @@ public class TruthTable<T extends Number> {
 	}
 
 	/**
+	 * 
+	 */
+	public void printInputNames() {
+		Iterator<String> it = inputNames.iterator();
+
+		while (it.hasNext()) {
+			System.out.print(it.next() + " ");
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void printOutputNames() {
+		Iterator<String> it = outputNames.iterator();
+
+		while (it.hasNext()) {
+			System.out.print(it.next() + " ");
+		}
+	}
+
+	/**
 	 * Returns a chunk/row vector at the given index. Validates the index by using
 	 * assert. The index must be in the interval 0 <= index <= max_index.
 	 * 
@@ -153,12 +188,46 @@ public class TruthTable<T extends Number> {
 	}
 
 	/**
+	 * 
+	 */
+	public Vector<String> getInputNames() {
+		return inputNames;
+	}
+
+	/**
+	 * 
+	 */
+	public Vector<String> getOutputNames() {
+		return outputNames;
+	}
+
+	public String getModelName() {
+		return modelName;
+	}
+
+	/**
 	 * Returns the value the compressed variable.
 	 * 
 	 * @return value of the compressed variable
 	 */
 	public boolean isCompressed() {
 		return compressed;
+	}
+	
+	/**
+	 * 
+	 * @param inputNames
+	 */
+	public void setInputNames(Vector<String> inputNames) {
+		this.inputNames = inputNames;
+	}
+
+	/**
+	 * 
+	 * @param outputNames
+	 */
+	public void setOutputNames(Vector<String> outputNames) {
+		this.outputNames = outputNames;
 	}
 
 	/**
